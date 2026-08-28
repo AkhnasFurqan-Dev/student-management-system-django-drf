@@ -30,6 +30,7 @@ class UserModelTests(TestCase):
             username = 'teacher1',
             email = 'teacher1@example.com',
             password = 'testpass123',
+            role = User.Role.TEACHER,
         )
 
         self.assertEqual(user.role, User.Role.TEACHER)
@@ -37,7 +38,7 @@ class UserModelTests(TestCase):
     def test_create_superuser_has_admin_role(self):
         """Test creating a superuser with admin role."""
 
-        admin = User.objects.create_user(
+        admin = User.objects.create_superuser(
             username = 'admin1',
             email = 'admin1@example.com',
             password = 'testpass123',
