@@ -21,28 +21,28 @@ class AdminOnlyView(APIView):
     permission_classes = [IsAdmin]
 
     def get(self, request):
-        return Response("ok", True)
+        return Response({"ok", True})
 
 
 class TeacherOnlyView(APIView):
     permission_classes = [IsTeacher]
 
     def get(self, request):
-        return Response("ok", True)
+        return Response({"ok", True})
 
 
 class AdminOrTeacherView(APIView):
     permission_classes = [IsAdminOrTeacher]
 
     def get(self, request):
-        return Response("ok", True)
+        return Response({"ok", True})
 
 
 class StudentOnlyView(APIView):
     permission_classes = [IsStudent]
 
     def get(self, request):
-        return Response("ok", True)
+        return Response({"ok", True})
 
 
 urlpatterns = [
@@ -105,7 +105,7 @@ class PermissionClassTests(APITestCase, URLPatternsTestCase):
         'test unauthenticated request is blocked'
 
         res = self.client.get("/admin-only/")
-        self.assertEqual(res.status_code, (status.HTTP_401_UNAUTHORIZED, status.HTTP_403_FORBIDDEN))
+        self.assertIn(res.status_code, (status.HTTP_401_UNAUTHORIZED, status.HTTP_403_FORBIDDEN))
 
 
     '''teacher-only view tests'''
@@ -158,4 +158,4 @@ class PermissionClassTests(APITestCase, URLPatternsTestCase):
 
         self.client.force_authenticate(self.admin)
         res = self.client.get("/student-only/")
-        self.assertEqual(res.status_code, status.HTTP_200_OK)
+        self.assertEqual(res.status_code, status.HTTP_403_FORBIDDEN)
