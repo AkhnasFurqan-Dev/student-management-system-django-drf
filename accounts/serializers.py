@@ -9,7 +9,7 @@ from rest_framework import serializers
 User = get_user_model()
 
 
-class RegistrationSerializer(serializers.ModelSerializer):
+class RegisterSerializer(serializers.ModelSerializer):
     """Serializer for public self registration.
 
     Write fields are "username", "email", "password".
