@@ -8,7 +8,7 @@ from django.contrib.auth import get_user_model
 from rest_framework.test import APITestCase
 from rest_framework import status
 
-User = get_user_model
+User = get_user_model()
 
 REGISTER_URL = reverse("accounts:register")
 LOGIN_URL = reverse("accounts:token_obtain_pair")
