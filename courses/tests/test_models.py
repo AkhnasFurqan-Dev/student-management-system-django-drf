@@ -4,6 +4,7 @@ Tests for the Course model.
 
 from django.test import TestCase
 from django.contrib.auth import get_user_model
+
 from courses.models import Course
 
 User = get_user_model()
