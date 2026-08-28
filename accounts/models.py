@@ -26,4 +26,4 @@ class User(AbstractUser):
     def __str__(self):
         """String representation of a user."""
 
-        return f"{self.id}: {self.username}: is ({self.role})"
+        return f"{self.username} ({self.role})"
