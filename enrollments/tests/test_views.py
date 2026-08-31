@@ -107,7 +107,7 @@ class EnrollmentAccessTests(APITestCase):
 
         self.assertEqual(res.status_code, status.HTTP_200_OK)
         self.assertEqual(len(res.data), 1)
-        self.assertEqual(res.data[0]["course"], self.own_course.id)
+        self.assertEqual(res.data[0]["course"]["id"], self.own_course.id)
 
     def test_student_sees_own_enrollments_only(self):
         """Test a student can see only own enrollments."""

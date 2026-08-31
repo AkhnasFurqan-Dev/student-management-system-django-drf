@@ -46,3 +46,16 @@ class EnrollmentSerializer(serializers.ModelSerializer):
                 )
 
         return attrs
+
+    def to_representation(self, instance):
+        """Overrides to provide course and teacher detail to student."""
+
+        rep = super().to_representation(instance)
+        rep['course'] = {
+            'id': instance.course.id,
+            'title': instance.course.title,
+            'description': instance.course.description,
+            'teacher': instance.course.teacher.username if instance.course.teacher else None,
+        }
+
+        return rep

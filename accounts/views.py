@@ -4,7 +4,7 @@ from rest_framework.response import Response
 from django.core.mail import send_mail
 from django.conf import settings
 
-from accounts.permissions import IsAdmin
+from accounts.permissions import IsAdmin, IsAdminOrTeacher
 
 from .models import User
 
@@ -24,13 +24,33 @@ class MeView(generics.RetrieveUpdateAPIView):
         return self.request.user
 
 
-class AdminUserViewSet(viewsets.ModelViewSet):
+class UserViewSet(viewsets.ModelViewSet):
     """
-    Endpoints for Admin to create, list, retrieve, update, and delete users.
-    Triggers an email with login credentials upon account creation.
+    Endpoints for Admin to manage all users. and Teachers to view their students.
     """
-    queryset = User.objects.all()
-    permission_classes = [permissions.IsAuthenticated, IsAdmin]
+
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_permissions(self):
+
+        if self.action in ["list", "retrieve"]:
+            return [permissions.IsAuthenticated(), IsAdminOrTeacher()]
+
+        return [permissions.IsAuthenticated(), IsAdmin()]
+
+    def get_queryset(self):
+
+        user = self.request.user
+
+        if user.role == user.Role.ADMIN:
+            return User.objects.all()
+        elif user.role == user.Role.TEACHER:
+            return User.objects.filter(
+                role=user.Role.STUDENT,
+                enrollments__course__teacher=user,
+            ).distinct()
+
+        return User.objects.none()
 
     def get_serializer_class(self):
         if self.action == "create":
@@ -46,7 +66,7 @@ class AdminUserViewSet(viewsets.ModelViewSet):
                 subject="Your Student Management System Account Credentials",
                 message=(
                     f"Hello {user.username},\n\n"
-                    f"An account with role '{user.role}' has been created for you.\n\n"
+                    f"An '{user.role}' account has been created for you.\n\n"
                     f"Username: {user.username}\n"
                     f"Password: {raw_password}\n\n"
                     f"Please log in and update your password."

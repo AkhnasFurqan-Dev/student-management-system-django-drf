@@ -71,7 +71,7 @@ class NotificationTests(APITestCase):
         self.assertEqual(res.status_code, status.HTTP_201_CREATED)
         self.assertEqual(len(mail.outbox), 1)
         self.assertEqual(mail.outbox[0].to, [self.student.email])
-        self.assertIn("Enrolled", mail.outbox[0].subject)
+        self.assertIn("Enrollment", mail.outbox[0].subject)
 
 
     def test_email_sent_to_student_on_enrollment_status_change(self):
