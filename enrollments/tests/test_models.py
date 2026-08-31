@@ -56,7 +56,7 @@ class EnrollmentModelTests(TestCase):
             student=self.student,
             course=self.course,
         )
-        with self.assertRaise(IntegrityError):
+        with self.assertRaises(IntegrityError):
             Enrollment.objects.create(
                 student=self.student,
                 course=self.course
