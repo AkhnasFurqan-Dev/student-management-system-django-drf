@@ -1,18 +1,18 @@
-"""
-URL routes for accounts app: register, login, refresh, me
-"""
-
 from django.urls import path
 
+from rest_framework.routers import DefaultRouter
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
-from .views import RegisterView, MeView
+from .views import RegisterView, MeView, AdminUserViewSet
 
 app_name = "accounts"
 
+router = DefaultRouter()
+router.register(r"users", AdminUserViewSet, basename="user")
+
 urlpatterns = [
-    path('register/', RegisterView.as_view(), name='register'),
-    path('login/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
-    path('login/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
-    path('me/', MeView.as_view(), name='me'),
-]
+    path("register/", RegisterView.as_view(), name="register"),
+    path("login/", TokenObtainPairView.as_view(), name="token_obtain_pair"),
+    path("login/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
+    path("me/", MeView.as_view(), name="me"),
+] + router.urls
