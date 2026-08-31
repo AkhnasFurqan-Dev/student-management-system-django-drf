@@ -38,18 +38,12 @@ class EnrollmentAccessTests(APITestCase):
             username="teacher1",
             email="teacher1@example.com",
             password="testpass123",
+            role=User.Role.TEACHER,
         )
 
         self.other_teacher = User.objects.create_user(
             username="teacher2",
             email="teacher2@example.com",
-            password="testpass123",
-            role=User.Role.TEACHER,
-        )
-
-        self.admin = User.objects.create_superuser(
-            username="admin",
-            email="admin@example.com",
             password="testpass123",
             role=User.Role.TEACHER,
         )
