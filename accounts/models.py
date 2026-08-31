@@ -21,6 +21,10 @@ class User(AbstractUser):
         default=Role.STUDENT,
     )
 
+    enrollment_year = models.PositiveIntegerField(null=True, blank=True)
+    batch = models.CharField(max_length=50, blank=True)
+    roll_number = models.CharField(max_length=20, blank=True)
+
     objects = UserManager()
 
     def __str__(self):
