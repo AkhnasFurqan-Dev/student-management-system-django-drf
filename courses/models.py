@@ -9,9 +9,19 @@ from django.db import models
 class Course(models.Model):
     """Course model"""
 
+    class DurationUnit(models.TextChoices):
+
+        DAY = "DAY","Day"
+        WEEK = "WEEK", "Week"
+        MONTH = "MONTH", "Month"
+
+
     title = models.CharField(max_length=255)
     description = models.TextField(blank=True)
-    duration = models.CharField(max_length=255)
+    duration = models.CharField(
+        max_length=20,
+        choices=DurationUnit.choices,
+    )
     schedule = models.CharField(max_length=255)
 
     teacher = models.ForeignKey(
