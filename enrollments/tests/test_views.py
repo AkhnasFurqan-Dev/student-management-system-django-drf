@@ -149,14 +149,14 @@ class EnrollmentAccessTests(APITestCase):
     def test_teacher_cannot_enroll_a_student_in_other_teachers_course(self):
         """Test teacher cannot create an enrollment for a student in other teacher's course."""
 
-        self.client.force_authenticate(self.student)
+        self.client.force_authenticate(self.teacher)
         payload = {
             "student": self.other_student.id,
             "course": self.other_course.id,
         }
         res = self.client.post(ENROLLMENT_URL, payload)
 
-        self.assertEqual(res.status_code, status.HTTP_403_FORBIDDEN)
+        self.assertEqual(res.status_code, status.HTTP_400_BAD_REQUEST)
 
     def test_student_cannot_create_enrollment(self):
         """Test a student cannot create an enrollment."""
