@@ -9,10 +9,16 @@ class UserAdmin(BaseUserAdmin):
 
     list_display = ("username", "email", "role", "is_staff", "is_active")
     fieldsets = BaseUserAdmin.fieldsets + (
-        ("Role", {"fields": ("role",)}),
+        ("Role & Student Info", {
+            "fields": ("role", "enrollment_year", "batch", "roll_number")
+            }
+        ),
     )
     add_fieldsets = BaseUserAdmin.add_fieldsets + (
-        ("Role", {"fields": ("role",)}),
+        ("Profile Info", {
+            "fields": ("email", "first_name", "last_name", "role", "enrollment_year", "batch", "roll_number")
+            }
+        ),
     )
 
 
