@@ -19,7 +19,8 @@ class CourseModelTests(TestCase):
         course = Course.objects.create(
             title="Computer Networks",
             description="Application of Networking",
-            duration="16 weeks",
+            duration_value=4,
+            duration_unit="week",
             schedule="Mon/Thu 9-11am",
         )
 
@@ -39,7 +40,8 @@ class CourseModelTests(TestCase):
         course = Course.objects.create(
             title="Computer Networks",
             description="Application of Networking",
-            duration="16 weeks",
+            duration_value=16,
+            duration_unit="week",
             schedule="Mon/Thu 9-11am",
             teacher=teacher,
         )
@@ -52,7 +54,8 @@ class CourseModelTests(TestCase):
         course = Course.objects.create(
             title="Computer Networks",
             description="Application of Networking",
-            duration="16 weeks",
+            duration_value=16,
+            duration_unit="week",
             schedule="Mon/Thu 9-11am",
         )
 
@@ -71,7 +74,8 @@ class CourseModelTests(TestCase):
         course = Course.objects.create(
             title="Computer Networks",
             description="Application of Networking",
-            duration="16 weeks",
+            duration_value=16,
+            duration_unit="week",
             schedule="Mon/Thu 9-11am",
             teacher=teacher,
         )

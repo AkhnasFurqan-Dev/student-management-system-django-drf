@@ -56,7 +56,8 @@ class CourseAccessTests(APITestCase):
         self.own_course = Course.objects.create(
             title="Own Course",
             description="Own course description.",
-            duration="4 weeks",
+            duration_value=4,
+            duration_unit="week",
             schedule="Tue 8-10am",
             teacher=self.teacher,
         )
@@ -64,7 +65,8 @@ class CourseAccessTests(APITestCase):
         self.other_course = Course.objects.create(
             title="Other Course",
             description="Other course description.",
-            duration="2 weeks",
+            duration_value=2,
+            duration_unit="week",
             schedule="Fri 3-4pm",
             teacher=self.other_teacher,
         )
@@ -106,7 +108,8 @@ class CourseAccessTests(APITestCase):
         payload = {
             'title':'New Course',
             'description': 'New Course Description',
-            'duration': '3 weeks',
+            'duration_value': 3,
+            'duration_unit': 'WEEK',
             'schedule': 'Fri 8am',
         }
         res = self.client.post(COURSES_URL, payload)
@@ -120,7 +123,8 @@ class CourseAccessTests(APITestCase):
         payload = {
             'title':'Illegal Course',
             'description': 'Illegal Course Description',
-            'duration': '3 weeks',
+            'duration_value': 3,
+            'duration_unit': 'WEEK',
             'schedule': 'Fri 8am',
         }
         res = self.client.post(COURSES_URL, payload)
@@ -133,7 +137,8 @@ class CourseAccessTests(APITestCase):
         unassigned_course = Course.objects.create(
             title = 'Illegal Course',
             description = 'Illegal Course Description',
-            duration = '3 weeks',
+            duration_value = 3,
+            duration_unit = "week",
             schedule = 'Fri 8am',
         )
         res = self.client.patch(

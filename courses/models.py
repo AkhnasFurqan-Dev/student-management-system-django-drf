@@ -12,13 +12,14 @@ class Course(models.Model):
     class DurationUnit(models.TextChoices):
 
         DAY = "DAY","Day"
-        WEEK = "WEEK", "Week"
-        MONTH = "MONTH", "Month"
+        WEEK = "WEEK","Week"
+        MONTH = "MONTH","Month"
 
 
     title = models.CharField(max_length=255)
     description = models.TextField(blank=True)
-    duration = models.CharField(
+    duration_value = models.PositiveIntegerField()
+    duration_unit = models.CharField(
         max_length=20,
         choices=DurationUnit.choices,
     )

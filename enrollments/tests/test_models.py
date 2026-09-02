@@ -34,14 +34,15 @@ class EnrollmentModelTests(TestCase):
         self.course = Course.objects.create(
             title="Sample Course",
             description="Sample course description.",
-            duration="4 weeks",
+            duration_value=8,
+            duration_unit="week",
             schedule="Tue 8-10am",
             teacher=self.teacher,
         )
 
 
     def test_create_enrollment_defaults_to_active_status(self):
-        """Test new enrollment defaults to active unless specified otherwize"""
+        """Test new enrollment defaults to active unless specified otherwise"""
 
         enrollment = Enrollment.objects.create(
             student=self.student,

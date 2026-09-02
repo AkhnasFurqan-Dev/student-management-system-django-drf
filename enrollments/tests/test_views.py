@@ -65,7 +65,8 @@ class EnrollmentAccessTests(APITestCase):
         self.own_course = Course.objects.create(
             title="Own Course",
             description="Own course description",
-            duration="4 weeks",
+            duration_value=4,
+            duration_unit="week",
             schedule="Mon 10am",
             teacher=self.teacher,
         )
@@ -73,7 +74,8 @@ class EnrollmentAccessTests(APITestCase):
         self.other_course = Course.objects.create(
             title="Other Course",
             description="Other course description",
-            duration="6 weeks",
+            duration_value=6,
+            duration_unit="week",
             schedule="Wed 10am",
             teacher=self.other_teacher,
         )

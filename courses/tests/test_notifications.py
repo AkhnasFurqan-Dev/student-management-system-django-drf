@@ -43,7 +43,8 @@ class NotificationTests(APITestCase):
         self.course = Course.objects.create(
             title="Notify Test Course",
             description="Notify Course Description",
-            duration="1 week",
+            duration_value=1,
+            duration_unit="week",
             schedule="Fri 9am",
         )
 
