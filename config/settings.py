@@ -165,5 +165,8 @@ SIMPLE_JWT = {
 
 SPECTACULAR_SETTINGS = {
     'TITLE': 'Student Management System API',
+    'DESCRIPTION': (
+            "REST API for managing users, courses, and student enrollments with role-based access control."
+        ),
     'VERSION': '1.0.0',
 }

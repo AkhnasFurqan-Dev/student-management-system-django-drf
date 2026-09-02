@@ -26,7 +26,7 @@ class MeView(generics.RetrieveUpdateAPIView):
 
 class UserViewSet(viewsets.ModelViewSet):
     """
-    Endpoints for Admin to manage all users. and Teachers to view their students.
+    Endpoints for admins to manage users and teachers to view their students.
     """
 
     permission_classes = [permissions.IsAuthenticated]

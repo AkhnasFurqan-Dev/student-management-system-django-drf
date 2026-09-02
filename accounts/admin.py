@@ -5,7 +5,7 @@ from .models import User
 
 
 class UserAdmin(BaseUserAdmin):
-    """"""
+    """Admin config. for custom user model."""
 
     list_display = ("username", "email", "role", "is_staff", "is_active")
     fieldsets = BaseUserAdmin.fieldsets + (

@@ -21,11 +21,11 @@ class EnrollmentSerializer(serializers.ModelSerializer):
     """
 
     student = serializers.PrimaryKeyRelatedField(
-        queryset=User.objects.filter(role=User.Role.STUDENT)
+        queryset=User.objects.filter(role=User.Role.STUDENT),
     )
 
     course = serializers.PrimaryKeyRelatedField(
-        queryset=Course.objects.all()
+        queryset=Course.objects.all(),
     )
 
 
@@ -51,11 +51,15 @@ class EnrollmentSerializer(serializers.ModelSerializer):
         """Overrides to provide course and teacher detail to student."""
 
         rep = super().to_representation(instance)
-        rep['course'] = {
-            'id': instance.course.id,
-            'title': instance.course.title,
-            'description': instance.course.description,
-            'teacher': instance.course.teacher.username if instance.course.teacher else None,
+        rep["course"] = {
+            "id": instance.course.id,
+            "title": instance.course.title,
+            "description": instance.course.description,
+            "teacher": (
+                instance.course.teacher.username
+                if instance.course.teacher
+                else None
+            ),
         }
 
         return rep
