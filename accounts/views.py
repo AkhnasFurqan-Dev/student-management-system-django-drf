@@ -10,7 +10,7 @@ from .models import User
 
 from .serializers import RegisterSerializer, UserProfileSerializer, AdminUserCreateSerializer
 
-from drf_spectacular.utils import extend_schema_view, extend_schema, OpenApiParameter, OpenApiTypes
+from drf_spectacular.utils import extend_schema_view, extend_schema
 
 
 @extend_schema(
