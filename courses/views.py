@@ -2,7 +2,7 @@
 Views for the Courses API
 """
 
-from drf_spectacular.utils import extend_schema, extend_schema_view
+from drf_spectacular.utils import extend_schema, extend_schema_view, OpenApiParameter, OpenApiTypes
 
 from rest_framework import viewsets, permissions
 

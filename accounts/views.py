@@ -10,12 +10,39 @@ from .models import User
 
 from .serializers import RegisterSerializer, UserProfileSerializer, AdminUserCreateSerializer
 
+from drf_spectacular.utils import extend_schema_view, extend_schema, OpenApiParameter, OpenApiTypes
 
+
+@extend_schema(
+    summary="Register a new user",
+    description=(
+        "Creates a new student account. Registration is publicly accessible and does not require authentication. The password must be at least 8 characters long."
+    ),
+)
 class RegisterView(generics.CreateAPIView):
     serializer_class = RegisterSerializer
     permission_classes = [permissions.AllowAny]
 
-
+@extend_schema_view(
+    get=extend_schema(
+        summary="Get current user profile",
+        description=(
+            "Returns the profile of the currently authenticated user. Authentication using a valid JWT access token is required."
+        ),
+    ),
+    patch=extend_schema(
+        summary="Partially update current user profile",
+        description=(
+            "Partially updates the profile of the currently authenticated user. Only permitted profile fields can be modified."
+        ),
+    ),
+    put=extend_schema(
+        summary="Update current user profile",
+        description=(
+            "Updates the profile of the currently authenticated user. The fields that can be modified depend on the user's role."
+        ),
+    ),
+)
 class MeView(generics.RetrieveUpdateAPIView):
     serializer_class = UserProfileSerializer
     permission_classes = [permissions.IsAuthenticated]
@@ -24,6 +51,44 @@ class MeView(generics.RetrieveUpdateAPIView):
         return self.request.user
 
 
+@extend_schema_view(
+    list=extend_schema(
+        summary="List users",
+        description=(
+            "Returns a list of users. Administrators can view all users, while teachers can view students enrolled in their courses."
+        ),
+    ),
+    retrieve=extend_schema(
+        summary="Retrieve a user",
+        description=(
+            "Returns the details of a specific user. Administrators can retrieve any user, while teachers can retrieve students enrolled in their courses."
+        ),
+    ),
+    create=extend_schema(
+        summary="Create a user",
+        description=(
+            "Creates a new user. Only administrators can create users through this endpoint. The password is set during creation and the user's role can be specified."
+        ),
+    ),
+    update=extend_schema(
+        summary="Update a user",
+        description=(
+            "Replaces a user's information. Only administrators can update users."
+        ),
+    ),
+    partial_update=extend_schema(
+        summary="Partially update a user",
+        description=(
+            "Updates selected fields of a user. Only administrators can modify users through this endpoint."
+        ),
+    ),
+    destroy=extend_schema(
+        summary="Delete a user",
+        description=(
+            "Deletes a user from the system. Only administrators can delete users."
+        ),
+    ),
+)
 class UserViewSet(viewsets.ModelViewSet):
     """
     Endpoints for admins to manage users and teachers to view their students.
